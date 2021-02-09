@@ -6,10 +6,9 @@ VISIT THE LIVE APP HERE: [pinkys.netlify.app](https://github.com/facebook/create
 
 Pinky's Records and Discs is a custom e-commerce solution built with React.
 
-### `yarn start`
+### `RESOURCES`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+All album artwork is courtey of [albumartexchange.com](https://www.albumartexchange.com/).
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
