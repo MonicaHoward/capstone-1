@@ -9,6 +9,7 @@ const Album = () => {
             <h3>Artist Name</h3>
             <p>$20</p>
             <button>ADD TO CART</button>
+            <p>l</p> 
         </main>
     )
 }
