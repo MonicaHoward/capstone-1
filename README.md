@@ -1,10 +1,10 @@
-# Getting Started with Create React App
+# PINKY'S RECORDS AND DISCS
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+VISIT THE LIVE APP HERE: [pinkys.netlify.app](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## ABOUT
 
-In the project directory, you can run:
+Pinky's Records and Discs is a custom e-commerce solution built with React.
 
 ### `yarn start`
 
