@@ -10,9 +10,6 @@ Pinky's Records and Discs is a custom e-commerce solution built with React.
 
 All album artwork is courtey of [albumartexchange.com](https://www.albumartexchange.com/).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
 ### `yarn test`
 
 Launches the test runner in the interactive watch mode.\
