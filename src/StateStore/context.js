@@ -37,5 +37,12 @@ const RecordsContext = React.createContext({
             album_cover: "https://www.albumartexchange.com/coverart/gallery/am/amywinehouse_backtoblackdeluxeedi_7hcc.jpg",        
             genre: "r&b"
         },
+        {
+            id: 5,
+            artist: "Santana",
+            album_title: "Santana",
+            album_cover: "https://www.albumartexchange.com/coverart/gallery/sa/santana_santana1stalbum_5xv6.jpg",        
+            genre: "rock"
+        }
     ]
 })
