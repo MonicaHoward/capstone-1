@@ -1,13 +1,13 @@
 import React from 'react'
 import './App.css';
 // import Album from './components/Album'
-import AlbumDetails from './components/AlbumDetails'
+import Cart from './components/Cart'
 
 function App() {
   return (
     <div className="App">
       <h1>PINKY'S RECORDS AND DISCS</h1>
-      <AlbumDetails />
+      <Cart />
     </div>
   );
 }
