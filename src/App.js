@@ -1,13 +1,16 @@
 import React from 'react'
 import './App.css';
+import Navbar from './components/Navbar'
 // import Album from './components/Album'
-import Cart from './components/Cart'
+import Shop from './pages/Shop.page'
+
+
 
 function App() {
   return (
     <div className="App">
-      <h1>PINKY'S RECORDS AND DISCS</h1>
-      <Cart />
+      <Navbar/>
+      <Shop />
     </div>
   );
 }

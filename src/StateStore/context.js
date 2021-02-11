@@ -2,13 +2,13 @@ import React from 'react';
 
 const RecordsContext = React.createContext({
     records: [
-        {
-            id: x,
-            artist: x,
-            album_title: x,
-            album_cover: x,        
-            genre: x
-        },
+        // {
+        //     id: x,
+        //     artist: x,
+        //     album_title: x,
+        //     album_cover: x,        
+        //     genre: x
+        // },
         {
             id: 1,
             artist: "Diana Ross",
@@ -44,5 +44,12 @@ const RecordsContext = React.createContext({
             album_cover: "https://www.albumartexchange.com/coverart/gallery/sa/santana_santana1stalbum_5xv6.jpg",        
             genre: "rock"
         }
+    ],
+    cart: [
+
     ]
 })
+
+
+
+export default RecordsContext
