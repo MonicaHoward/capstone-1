@@ -13,14 +13,14 @@ const RecordsContext = React.createContext({
             id: 1,
             artist: "Diana Ross",
             album_title: "diana",
-            album_cover: "https://www.albumartexchange.com/coverart/gallery/di/dianaross_diana_71q.jpg",        
+            album_cover: "https://images.pexels.com/photos/167092/pexels-photo-167092.jpeg",        
             genre: "r&b"
         },
         {
             id: 2,
             artist: "Maxwell",
             album_title: "BLACKsummer's Night",
-            album_cover: "https://www.albumartexchange.com/coverart/gallery/ma/maxwell_blacksummersnight_2a0t.jpg",        
+            album_cover: "https://images.pexels.com/photos/167092/pexels-photo-167092.jpeg",        
             genre: "r&b"
         },
         {

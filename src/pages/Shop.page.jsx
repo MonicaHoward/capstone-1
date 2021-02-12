@@ -1,4 +1,5 @@
 import React, {useContext, useReducer} from 'react' 
+import './shop.css'
 import AlbumList from '../components/AlbumList'
 import Cart from '../components/Cart'
 
@@ -13,8 +14,17 @@ const Shop = () => {
 
     return(
         <RecordsContext.Provider value={{state,dispatch}}>
-            <Cart />
-            <AlbumList />
+            <header
+                className="shop" 
+                style={{marginTop: "5%"}}
+            >
+                <h1>HELLOOOOOOOOOOO!</h1>
+            </header>
+            <div>
+                    <Cart />
+                    <AlbumList />
+            </div>
+            
         </RecordsContext.Provider>
     )
 }
