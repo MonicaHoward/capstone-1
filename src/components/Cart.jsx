@@ -14,8 +14,8 @@ const Cart = ({records}) => {
         console.log("Anything in the cart?", state.cart)
         console.log(initialState)
    
-    if(state.cart === undefined) {
-        // console.log(state.cart )
+    if(initialState === undefined) {
+        console.log(initialState.state.cart )
         return "no items in cart"
     }    
     else {
@@ -24,9 +24,10 @@ const Cart = ({records}) => {
         <div>
         <h1>THIS IS THE CART</h1>
            <ul>
-            {state.cart.map(item => (
+            {initialState.state.cart.map(item => (
                 <CartItem 
                     product={item}
+                    albumTitle={item.album_Title}
                 />
             ))}
            </ul>
