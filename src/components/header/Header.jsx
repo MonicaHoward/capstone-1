@@ -22,7 +22,8 @@ const Header = () => {
                 />
             </div>
 
-            <section className="front-page-feature">
+            <section        className="front-page-feature"
+            >
                 <div className="feature">
                     <h1>feature</h1>
                 </div>
