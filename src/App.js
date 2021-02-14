@@ -1,19 +1,12 @@
 import React, {useContext, useReducer} from 'react';
 import './App.css';
 import Navbar from './components/Navbar'
-import Header from './components/Header'
+import Header from './components/header/Header'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Shop from './pages/Shop.page'
 import Cart from './components/Cart'
-import {useStateValue} from './StateStore/StateProvider'
-// import Cart from './components/Cart'
-// import RecordsContext from './StateStore/context'
-// import recordsReducer from './StateStore/reducer'
-
 
 function App() {
-  
-
   return(
     <BrowserRouter>
         <div className="app">
