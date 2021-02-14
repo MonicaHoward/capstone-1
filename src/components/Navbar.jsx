@@ -16,6 +16,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import ShoppingBasketOutlinedIcon from '@material-ui/icons/ShoppingBasketOutlined';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
+import {useStateValue} from '../StateStore/StateProvider'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -73,15 +75,17 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
     },
   },
-  sectionMobile: {
-    display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
-  },
+  // sectionMobile: {
+  //   display: 'flex',
+  //   [theme.breakpoints.up('md')]: {
+  //     display: 'none',
+  //   },
+  // },
 }));
 
 export default function PrimarySearchAppBar() {
+  const [{cart}] = useStateValue()
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -165,7 +169,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="fixed" style={{backgroundColor: "#000"}}>
+      <AppBar position="sticky" style={{backgroundColor: "#000"}}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -175,9 +179,11 @@ export default function PrimarySearchAppBar() {
           >
             <MenuIcon />
           </IconButton>
+          <Link to="/">
           <Typography className={classes.title} variant="h6" noWrap>
             PINKY'S RECORDS AND DISCS
           </Typography>
+          </Link>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -193,16 +199,25 @@ export default function PrimarySearchAppBar() {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
+          <Link to="/shop">
+          <Typography className={classes.title} variant="h6" noWrap>
+            shop
+          </Typography>
+              </Link>
+              <Link to="/fav">
             <IconButton aria-label="show 4 new mails" color="inherit">
               <Badge badgeContent={4} color="secondary">
                 <FavoriteBorderOutlinedIcon />
               </Badge>
             </IconButton>
+            </Link>
+            <Link to="/cart">
             <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={1} color="secondary">
+              <Badge badgeContent={cart?.length} color="secondary">
                 <ShoppingBasketOutlinedIcon />
               </Badge>
             </IconButton>
+            </Link>
             <IconButton
               edge="end"
               aria-label="account of current user"

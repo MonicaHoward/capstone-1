@@ -1,32 +1,42 @@
 import React, {useContext, useReducer} from 'react' 
-import './shop.css'
+import {useStateValue} from '../StateStore/StateProvider'
 import AlbumList from '../components/AlbumList'
-import Cart from '../components/Cart'
-
-import RecordsContext from '../StateStore/context'
-import recordsReducer from '../StateStore/reducer'
 
 
 const Shop = () => {
-
-    const initialState = useContext(RecordsContext)
-    const [state, dispatch] = useReducer(recordsReducer, initialState)
-
+    const [{cart}] = useStateValue()
+    console.log("SHOP PAGE", cart)
     return(
-        <RecordsContext.Provider value={{state,dispatch}}>
-            <header
-                className="shop" 
-                style={{marginTop: "5%"}}
-            >
-                <h1>HELLOOOOOOOOOOO!</h1>
-            </header>
-            <div>
-                    <Cart />
-                    <AlbumList />
-            </div>
-            
-        </RecordsContext.Provider>
-    )
+        
+        <div>
+            <h1>hello</h1>
+            <AlbumList />
+        </div>
+        
+)
 }
 
 export default Shop
+// import './shop.css'
+// import Header from '../components/Header'
+// import AlbumList from '../components/AlbumList'
+// import Cart from '../components/Cart'
+// import Navbar from '../components/Navbar'
+
+// // import {RecordsContext} from '../StateStore/context'
+// // import recordsReducer from '../StateStore/reducer'
+
+
+
+
+    // const initialState = useContext(RecordsContext)
+    // const [state, dispatch] = useReducer(recordsReducer, initialState)
+
+    // console.log("SHOP STATE", state.state)
+    // console.log("SHOP context", RecordsContext)
+
+
+
+// export default Shop
+
+// <Header />

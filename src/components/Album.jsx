@@ -10,10 +10,7 @@
 //         } = useContext(RecordsContext)
     
 
-//     const addToCart = (item) => {
-//         console.log(item)
-//         dispatch({ type: "ADD_TO_CART", item})
-        
+  
 //     }
 
 //     return(
@@ -56,15 +53,28 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import RecordsContext from '../StateStore/context'
 import recordsReducer from '../StateStore/reducer'
+import Button from '@material-ui/core/Button';
+import {useStateValue} from '../StateStore/StateProvider'
 
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
   },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
+  card: {
+    maxWidth: 345,
+    boxShadow: "0 5px 8px 0 rgba(0, 0, 0, 0.3)",
+    backgroundColor: "#fafafa",
   },
+  media: {
+    height: 300,
+  },
+  overlay: {
+    position: 'absolute',
+    top: '20px',
+    left: '20px',
+    color: 'orange',
+    backgroundColor: 'green'
+ },
   expand: {
     transform: 'rotate(0deg)',
     marginLeft: 'auto',
@@ -80,19 +90,20 @@ const useStyles = makeStyles((theme) => ({
 //   },
 }));
 
-export default function RecipeReviewCard({record, albumTitle, albumCover}) {
+export default function RecipeReviewCard({record, albumTitle, albumCover,}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [currentRecord, setCurrentRecord] = useState([])
-    const {
-            state: { cart = {} },
-            dispatch
-        } = useContext(RecordsContext)
+  const [state, dispatch] = useStateValue()
+  const [{records, cart}] = useStateValue()
+
     
+console.log("FROM ALBUM records", records)
+console.log("FROM ALBUM cart", cart)
 
     const addToCart = (item) => {
         console.log(item)
-        dispatch({ type: "ADD_TO_CART", item})
+        dispatch({ type: "ADD_TO_CART", item
+        })
         
     }
 
@@ -101,13 +112,22 @@ export default function RecipeReviewCard({record, albumTitle, albumCover}) {
   };
 
   return (
-    <Card className={classes.root}>
-      
+    <Card className={classes.root}>  
+    <IconButton 
+    styles={useStyles.overlay}
+    aria-label="add to favorites">
+        <FavoriteIcon />
+    </IconButton>   
       <CardMedia
         className={classes.media}
-        image="https://images.pexels.com/photos/167092/pexels-photo-167092.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
-        title="Paella dish"
+        styles={useStyles.card}
+        image="https://images.pexels.com/photos/963436/pexels-photo-963436.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
       />
+        <IconButton 
+        styles={useStyles.overlay}
+        aria-label="add to favorites">
+            <FavoriteIcon />
+        </IconButton>
       <CardHeader
         
         // avatar={
@@ -121,7 +141,7 @@ export default function RecipeReviewCard({record, albumTitle, albumCover}) {
         //   </IconButton>
         // }
         title={albumTitle}
-        subheader={record.artist}
+        // subheader={}
       />
       
       <CardActions disableSpacing>
@@ -141,6 +161,13 @@ export default function RecipeReviewCard({record, albumTitle, albumCover}) {
         >
           <ExpandMoreIcon />
         </IconButton>
+        <Button variant="contained" color="secondary"
+        onClick={() => addToCart(record)}
+                // onSubmit={handleSubmit}
+                // value={currentRecord}
+        >
+  ADD TO CART
+</Button>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>

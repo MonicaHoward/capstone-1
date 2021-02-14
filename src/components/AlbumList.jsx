@@ -1,19 +1,18 @@
 import React, {useContext, useReducer, useState} from 'react' 
 import Album from '../components/Album'
-import RecordsContext from '../StateStore/context'
+import {useStateValue} from '../StateStore/StateProvider'
+// import RecordsContext from '../StateStore/context'
 // import recordsReducer from '../StateStore/reducer'
 
 const AlbumList = () => {
-    const { state, dispatch } = useContext(RecordsContext)
-
+    const [{records, cart}] = useStateValue()
+    console.log("FROM ALBUM LIST", records, cart)
     return(
-        <div>
-            {state.records.map(record => (
-                <Album 
-                    key={record.id}
-                    record={record}
-                    albumTitle={record.album_title}
-                    albumCover={record.album_cover}
+        <div className="albumList">
+            {records.map(record => (
+                <Album
+                record={record}
+                albumTitle={record.album_title}
                 />
             ))}
         </div>

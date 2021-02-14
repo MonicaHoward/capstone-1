@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RecordsContext = React.createContext({
+export const RecordsContext = React.createContext({
     records: [
         // {
         //     id: x,

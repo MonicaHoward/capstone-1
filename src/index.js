@@ -3,11 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter} from 'react-router-dom';
+// import RecordsContext from './StateStore/context'
+// import recordsReducer from './StateStore/reducer'
+import {StateProvider} from './StateStore/StateProvider'
+import reducer, {initialState} from './StateStore/reducer'
+
 
 ReactDOM.render(
-  <React.StrictMode>
+  <StateProvider initialState={initialState} reducer={reducer}>
+  <BrowserRouter>
     <App />
-  </React.StrictMode>,
+  </BrowserRouter>,
+  </StateProvider>,
   document.getElementById('root')
 );
 
