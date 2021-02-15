@@ -212,9 +212,18 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [qty, setQty] = React.useState();
+  const [qty, setQty] = React.useState([{qty: 1}]);
   const [{cart}] = useStateValue()
+  const [inputVals, setInputVals] = React.useState([{qty: ''}]);
 
+
+  const handleQtyChange = (event) => {
+    // setQty(event.target.value)
+    console.log("QTY",qty)
+
+    const updatedQty = [...inputVals];
+    setInputVals(updatedQty)
+  };
 
   const total = cart.reduce((acc, curr) => acc + curr.price, 0)
 
@@ -258,10 +267,7 @@ export default function EnhancedTable() {
     setSelected(newSelected);
   };
 
-  const handleChange = (event) => {
-    setQty(event.target.value);
-  };
-
+  
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -327,22 +333,22 @@ export default function EnhancedTable() {
                       </TableCell>
                       <TableCell key={row.id} align="right">{row.album_title}</TableCell>
                       <TableCell key={row.id} align="right">{row.artist}</TableCell>
-                      <TableCell key={row.id} align="right">{row.price} </TableCell>
-                      <TableCell key={row.id} align="right"><FormControl variant="outlined" className={classes.formControl}>
-                      <InputLabel key={row.id} id="demo-simple-select-outlined-label">qty.</InputLabel>
-
-                      <Select
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        value={qty}
-                        onChange={handleChange}
-                        label="qty"
-                      >
-                     { [...Array(row.quantity)].map((e, i) => <MenuItem key={row.id}  onChange={handleChange}  value={i} >{i}</MenuItem>) }
-                       
-                      </Select>
-                    </FormControl></TableCell>
-
+                      <TableCell key={row.id} align="right">{qty.qty === undefined ? row.price : row.price * qty.qty}</TableCell> 
+                      <TableCell key={row.id} align="right">
+                        <FormControl variant="outlined" className={classes.formControl}>
+                          <InputLabel key={row.id} id="demo-simple-select-outlined-label">qty.</InputLabel>
+                            <Select
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              defaultValue = "1"
+                              value={qty.qty}
+                              onChange={handleQtyChange}
+                              label="qty"
+                            >
+                            { [...Array(row.quantity)].map((e, i) => <MenuItem key={i} onChange={handleQtyChange} value={i+1}>{i+1}</MenuItem>) }                       
+                            </Select>
+                        </FormControl>
+                      </TableCell>
                     </TableRow>
                   );
                 })}
