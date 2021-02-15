@@ -1,4 +1,4 @@
-import React, {useContext, useReducer} from 'react';
+import React from 'react';
 import './App.css';
 import Navbar from './components/Navbar'
 import Header from './components/header/Header'

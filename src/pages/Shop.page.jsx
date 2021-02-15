@@ -1,4 +1,4 @@
-import React, {useContext, useReducer} from 'react' 
+import React from 'react' 
 import {useStateValue} from '../StateStore/StateProvider'
 import AlbumList from '../components/AlbumList'
 
@@ -9,7 +9,7 @@ const Shop = () => {
     return(
         
         <div>
-            <h1>hello</h1>
+            <h1>SHOP</h1>
             <AlbumList />
         </div>
         
