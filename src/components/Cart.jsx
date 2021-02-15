@@ -7,7 +7,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -16,15 +15,14 @@ import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Switch from '@material-ui/core/Switch';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
+import Button from '@material-ui/core/Button';
 import {useStateValue} from '../StateStore/StateProvider'
+import StripeCheckout from 'react-stripe-checkout'
 
-
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
+function createData(name, calories, fat, carbs) {
+  return { name, calories, fat, carbs };
 }
 
 const rows = [
@@ -74,7 +72,7 @@ const headCells = [
   { id: 'calories', numeric: true, disablePadding: false, label: 'Album Title' },
   { id: 'fat', numeric: true, disablePadding: false, label: 'Artist' },
   { id: 'carbs', numeric: true, disablePadding: false, label: 'Price' },
-  { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
+  
 ];
 
 function Cart(props) {
@@ -225,11 +223,18 @@ export default function EnhancedTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [{cart}] = useStateValue()
 
+  const total = cart.reduce((acc, curr) => acc + curr.price, 0)
+
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
   };
+
+  function handleToken(token, addresses){
+    console.log({token, addresses})
+    
+  }
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
@@ -326,7 +331,6 @@ export default function EnhancedTable() {
                       <TableCell align="right">{row.album_title}</TableCell>
                       <TableCell align="right">{row.artist}</TableCell>
                       <TableCell align="right">{row.price}</TableCell>
-                      <TableCell align="right">{row.protein}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -338,60 +342,16 @@ export default function EnhancedTable() {
             </TableBody>
           </Table>
         </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onChangePage={handleChangePage}
-          onChangeRowsPerPage={handleChangeRowsPerPage}
-        />
+        
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
+      <h1>TOTAL: {total}</h1>
+      <StripeCheckout
+                stripeKey="pk_test_51HIGdtFRb0GUvFhrlJAw2BIbRA9lGLgeoyEl4UZoEwkRp6b5Wdq90TraSfv0Qa8PTKmxnSMjhnGBx0xR3TElsGqa00ffMFSf9n"
+                token={handleToken}
+                billingAddress
+                shippingAddress
+                amount={total * 100}
       />
     </div>
   );
 }
-
-
-
-
-// import React, {useEffect, useContext, useReducer, useState} from 'react' 
-// import Album from '../components/Album'
-// import CartItem from '../components/CartItem'
-// import {useStateValue } from '../StateStore/StateProvider'
-
-// // import RecordsContext from '../StateStore/context'
-// // import recordsReducer from '../StateStore/reducer'
-
-// const Cart = () => {
-//     const [{cart}] = useStateValue()
-  
-//         console.log("FROM CART", cart)
-        
-   
-
-//     return(
-//         // <div>
-//         // <h1>THIS IS THE CART</h1>
-        
-//         // </div>
-
-//         <div>
-//             {cart.map(cartAlbum => (
-//         <h1 key={cartAlbum.id}>
-//             {cartAlbum.album_title}
-//         </h1>
-//         ))}
-//             <h4>All Cart Items </h4>
-//             <p>Number of Items in Cart:</p>
-//             <hr />
-//             <button>checkout</button>
-//         </div>
-//     )
-//             }
-
-// export default Cart
