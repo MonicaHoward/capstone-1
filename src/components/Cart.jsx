@@ -20,26 +20,17 @@ import FilterListIcon from '@material-ui/icons/FilterList';
 import Button from '@material-ui/core/Button';
 import {useStateValue} from '../StateStore/StateProvider'
 import StripeCheckout from 'react-stripe-checkout'
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 function createData(name, calories, fat, carbs) {
   return { name, calories, fat, carbs };
 }
 
-const rows = [
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Donut', 452, 25.0, 51, 4.9),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-  createData('Honeycomb', 408, 3.2, 87, 6.5),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Jelly Bean', 375, 0.0, 94, 0.0),
-  createData('KitKat', 518, 26.0, 65, 7.0),
-  createData('Lollipop', 392, 0.2, 98, 0.0),
-  createData('Marshmallow', 318, 0, 81, 2.0),
-  createData('Nougat', 360, 19.0, 9, 37.0),
-  createData('Oreo', 437, 18.0, 63, 4.0),
-];
+
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -221,7 +212,9 @@ export default function EnhancedTable() {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [qty, setQty] = React.useState();
   const [{cart}] = useStateValue()
+
 
   const total = cart.reduce((acc, curr) => acc + curr.price, 0)
 
@@ -238,7 +231,7 @@ export default function EnhancedTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = cart.map((n) => n.name);
       setSelected(newSelecteds);
       return;
     }
@@ -265,6 +258,10 @@ export default function EnhancedTable() {
     setSelected(newSelected);
   };
 
+  const handleChange = (event) => {
+    setQty(event.target.value);
+  };
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -280,7 +277,7 @@ export default function EnhancedTable() {
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, cart.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -298,9 +295,9 @@ export default function EnhancedTable() {
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
+              // onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
+              rowCount={cart.length}
             />
             <TableBody>
               {stableSort(cart, getComparator(order, orderBy))
@@ -313,24 +310,39 @@ export default function EnhancedTable() {
                     <TableRow
                       hover
                       onClick={(event) => handleClick(event, row.id)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
+                      // role="checkbox"
+                      // aria-checked={isItemSelected}
                       tabIndex={-1}
                       key={row.id}
-                      selected={isItemSelected}
+                      // selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
-                          checked={isItemSelected}
-                          inputProps={{ 'aria-labelledby': labelId }}
+                          // checked={isItemSelected}
+                          // inputProps={{ 'aria-labelledby': labelId }}
                         />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" padding="none">
                         <img className="thumbnail" src={row.album_cover}  alt={`${row.album_title} album cover`} />
                       </TableCell>
-                      <TableCell align="right">{row.album_title}</TableCell>
-                      <TableCell align="right">{row.artist}</TableCell>
-                      <TableCell align="right">{row.price}</TableCell>
+                      <TableCell key={row.id} align="right">{row.album_title}</TableCell>
+                      <TableCell key={row.id} align="right">{row.artist}</TableCell>
+                      <TableCell key={row.id} align="right">{row.price} </TableCell>
+                      <TableCell key={row.id} align="right"><FormControl variant="outlined" className={classes.formControl}>
+                      <InputLabel key={row.id} id="demo-simple-select-outlined-label">qty.</InputLabel>
+
+                      <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={qty}
+                        onChange={handleChange}
+                        label="qty"
+                      >
+                     { [...Array(row.quantity)].map((e, i) => <MenuItem key={row.id}  onChange={handleChange}  value={i} >{i}</MenuItem>) }
+                       
+                      </Select>
+                    </FormControl></TableCell>
+
                     </TableRow>
                   );
                 })}
@@ -344,7 +356,7 @@ export default function EnhancedTable() {
         </TableContainer>
         
       </Paper>
-      <h1>TOTAL: {total}</h1>
+      <h1>TOTAL: {total.toFixed(2)}</h1>
       <StripeCheckout
                 stripeKey="pk_test_51HIGdtFRb0GUvFhrlJAw2BIbRA9lGLgeoyEl4UZoEwkRp6b5Wdq90TraSfv0Qa8PTKmxnSMjhnGBx0xR3TElsGqa00ffMFSf9n"
                 token={handleToken}
@@ -355,3 +367,10 @@ export default function EnhancedTable() {
     </div>
   );
 }
+
+// <TableCell padding="checkbox">
+// <Checkbox
+//   checked={isItemSelected}
+//   inputProps={{ 'aria-labelledby': labelId }}
+// />
+// </TableCell>

@@ -31,7 +31,7 @@ export const initialState = {
             price: 20.99,
             label: "RCA",
             serial_no: 111111111,
-            quantity: 1
+            quantity: 2
         },
         {
             id: 3,
@@ -42,7 +42,7 @@ export const initialState = {
             price: 24.99,
             label: "RCA",
             serial_no: 111111111,
-            quantity: 1
+            quantity: 4
         },
         {
             id: 4,
@@ -53,7 +53,7 @@ export const initialState = {
             price: 18.98,
             label: "RCA",
             serial_no: 111111111,
-            quantity: 1
+            quantity: 44
         },
         {
             id: 5,
@@ -64,7 +64,7 @@ export const initialState = {
             price: 12.99,
             label: "RCA",
             serial_no: 111111111,
-            quantity: 1
+            quantity: 34
         },
         {
             id: 6,
@@ -75,7 +75,7 @@ export const initialState = {
             price: 19.99,
             label: "RCA",
             serial_no: 111111111,
-            quantity: 1
+            quantity: 7
         },
         {
             id: 7,
@@ -86,7 +86,7 @@ export const initialState = {
             price: 19.99,
             label: "RCA",
             serial_no: 111111111,
-            quantity: 1
+            quantity: 12
         },
         {
             id: 8,
@@ -97,7 +97,7 @@ export const initialState = {
             price: 19.99,
             label: "RCA",
             serial_no: 111111111,
-            quantity: 1
+            quantity: 9
         },
         {
             id: 9,
@@ -108,7 +108,7 @@ export const initialState = {
             price: 19.99,
             label: "RCA",
             serial_no: 111111111,
-            quantity: 1
+            quantity: 4
         },
         {
             id: 10,
@@ -119,7 +119,7 @@ export const initialState = {
             price: 19.99,
             label: "RCA",
             serial_no: 111111111,
-            quantity: 1
+            quantity: 3
         },
     ],
     cart: [],
