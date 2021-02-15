@@ -10,8 +10,9 @@ const AlbumList = () => {
     console.log("FROM ALBUM LIST", records, cart)
     return(
         <div className="album-list">
-            {records.map(record => (
+            {records.map((record, i) => (
                 <Album
+                key={record.id}
                 record={record}
                 albumTitle={record.album_title}
                 />
