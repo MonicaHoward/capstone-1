@@ -12,38 +12,43 @@ export const initialState = {
             artist: "Diana Ross",
             album_title: "diana",
             album_cover: "https://images.pexels.com/photos/167092/pexels-photo-167092.jpeg",        
-            genre: "r&b"
+            genre: "r&b",
+            price: 18.99
         },
         {
             id: 2,
             artist: "Maxwell",
             album_title: "BLACKsummer's Night",
             album_cover: "https://images.pexels.com/photos/167092/pexels-photo-167092.jpeg",        
-            genre: "r&b"
+            genre: "r&b",
+            price: 20.99
         },
         {
             id: 3,
             artist: "Kendrick Lamar",
             album_title: "DAMN",
-            album_cover: "https://www.albumartexchange.com/coverart/gallery/ke/kendricklamar_damncollectorseditio_aiug.jpg",        
-            genre: "rap"
+            album_cover: "https://images.pexels.com/photos/167092/pexels-photo-167092.jpeg",        
+            genre: "rap",
+            price: 24.99
         },
         {
             id: 4,
             artist: "Amy Winehouse",
-            album_title: "Back to Build",
-            album_cover: "https://www.albumartexchange.com/coverart/gallery/am/amywinehouse_backtoblackdeluxeedi_7hcc.jpg",        
-            genre: "r&b"
+            album_title: "Back to Black",
+            album_cover: "https://images.pexels.com/photos/167092/pexels-photo-167092.jpeg",        
+            genre: "r&b",
+            price: 18.98
         },
         {
             id: 5,
             artist: "Santana",
             album_title: "Santana",
-            album_cover: "https://www.albumartexchange.com/coverart/gallery/sa/santana_santana1stalbum_5xv6.jpg",        
-            genre: "rock"
+            album_cover: "https://images.pexels.com/photos/167092/pexels-photo-167092.jpeg",        
+            genre: "rock",
+            price: 12.99
         }
     ],
-    cart: ["bread", "milk", "eggs"],
+    cart: [],
 }
 
 function reducer(state, action){

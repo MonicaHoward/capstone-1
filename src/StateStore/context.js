@@ -27,21 +27,21 @@ export const RecordsContext = React.createContext({
             id: 3,
             artist: "Kendrick Lamar",
             album_title: "DAMN",
-            album_cover: "https://www.albumartexchange.com/coverart/gallery/ke/kendricklamar_damncollectorseditio_aiug.jpg",        
+            album_cover: "https://images.pexels.com/photos/167092/pexels-photo-167092.jpeg",        
             genre: "rap"
         },
         {
             id: 4,
             artist: "Amy Winehouse",
             album_title: "Back to Build",
-            album_cover: "https://www.albumartexchange.com/coverart/gallery/am/amywinehouse_backtoblackdeluxeedi_7hcc.jpg",        
+            album_cover: "https://images.pexels.com/photos/167092/pexels-photo-167092.jpeg",        
             genre: "r&b"
         },
         {
             id: 5,
             artist: "Santana",
             album_title: "Santana",
-            album_cover: "https://www.albumartexchange.com/coverart/gallery/sa/santana_santana1stalbum_5xv6.jpg",        
+            album_cover: "https://images.pexels.com/photos/167092/pexels-photo-167092.jpeg",        
             genre: "rock"
         }
     ],
