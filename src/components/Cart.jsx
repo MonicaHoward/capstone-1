@@ -22,16 +22,12 @@ import {useStateValue} from '../StateStore/StateProvider'
 import StripeCheckout from 'react-stripe-checkout'
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
 function createData(name, calories, fat, carbs) {
   return { name, calories, fat, carbs };
 }
-
-
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -41,13 +37,11 @@ function descendingComparator(a, b, orderBy) {
   }
   return 0;
 }
-
 function getComparator(order, orderBy) {
   return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
-
 function stableSort(array, comparator) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
@@ -57,13 +51,11 @@ function stableSort(array, comparator) {
   });
   return stabilizedThis.map((el) => el[0]);
 }
-
 const headCells = [
   { id: 'name', numeric: false, disablePadding: true, label: 'Album' },
   { id: 'calories', numeric: true, disablePadding: false, label: 'Album Title' },
   { id: 'fat', numeric: true, disablePadding: false, label: 'Artist' },
   { id: 'carbs', numeric: true, disablePadding: false, label: 'Price' },
-  
 ];
 
 function Cart(props) {
@@ -214,15 +206,14 @@ export default function EnhancedTable() {
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [qty, setQty] = React.useState([{qty: 1}]);
   const [{cart}] = useStateValue()
-  const [inputVals, setInputVals] = React.useState([{qty: ''}]);
+  // const [inputVals, setInputVals] = React.useState([{qty: ''}]);
 
 
   const handleQtyChange = (event) => {
     // setQty(event.target.value)
     console.log("QTY",qty)
 
-    const updatedQty = [...inputVals];
-    setInputVals(updatedQty)
+    setQty({qty: event.target.value})
   };
 
   const total = cart.reduce((acc, curr) => acc + curr.price, 0)
@@ -333,22 +324,31 @@ export default function EnhancedTable() {
                       </TableCell>
                       <TableCell key={row.id} align="right">{row.album_title}</TableCell>
                       <TableCell key={row.id} align="right">{row.artist}</TableCell>
-                      <TableCell key={row.id} align="right">{qty.qty === undefined ? row.price : row.price * qty.qty}</TableCell> 
+                      <TableCell key={row.id} align="right">{row.price}</TableCell> 
                       <TableCell key={row.id} align="right">
+
                         <FormControl variant="outlined" className={classes.formControl}>
-                          <InputLabel key={row.id} id="demo-simple-select-outlined-label">qty.</InputLabel>
+                          <InputLabel key={row.id}  id="demo-simple-select-outlined-label">qty.</InputLabel>
                             <Select
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
-                              defaultValue = "1"
+                              defaultValue="1"
+                              type="number"
                               value={qty.qty}
                               onChange={handleQtyChange}
                               label="qty"
                             >
-                            { [...Array(row.quantity)].map((e, i) => <MenuItem key={i} onChange={handleQtyChange} value={i+1}>{i+1}</MenuItem>) }                       
+                            { [...Array(row.quantity)].map((e, i) => (
+                                <MenuItem 
+                                  key={i}                                defaultValue ={1}
+                                  value={i+1}
+                                >
+                                  {i+1}
+                                </MenuItem>)) }                       
                             </Select>
                         </FormControl>
                       </TableCell>
+                      <TableCell key={row.id} align="right">{row.price * qty.qty}</TableCell> 
                     </TableRow>
                   );
                 })}

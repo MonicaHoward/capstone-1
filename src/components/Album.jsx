@@ -14,9 +14,6 @@ import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import RecordsContext from '../StateStore/context'
-import recordsReducer from '../StateStore/reducer'
 import Button from '@material-ui/core/Button';
 import {useStateValue} from '../StateStore/StateProvider'
 
@@ -57,8 +54,8 @@ const useStyles = makeStyles((theme) => ({
 export default function RecipeReviewCard({record, albumTitle, albumCover,}) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-  const [state, dispatch] = useStateValue()
-  const [{records, cart}] = useStateValue()
+  // const [state, dispatch] = useStateValue()
+  const [{records, cart}, dispatch] = useStateValue()
 
     
 console.log("FROM ALBUM records", records)
