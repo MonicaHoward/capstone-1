@@ -11,12 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
-          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PINKYS_RECORDS }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_PINKYSRECORDS_95B31 }}'
           channelId: live
-          projectId: pinkys-records
+          projectId: pinkysrecords-95b31
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
