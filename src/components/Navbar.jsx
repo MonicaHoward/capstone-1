@@ -15,6 +15,7 @@ import AlbumOutlinedIcon from '@material-ui/icons/AlbumOutlined';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import ShoppingBasketOutlinedIcon from '@material-ui/icons/ShoppingBasketOutlined';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
+import StorefrontIcon from '@material-ui/icons/Storefront';
 import {useStateValue} from '../StateStore/StateProvider'
 import { Link } from 'react-router-dom'
 
@@ -122,16 +123,25 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
+    <Link to="/shop">
+      <MenuItem>
+        <IconButton aria-label="new items added to cart" color="inherit">
+          <StorefrontIcon style={{color: "black"}}/>
+        </IconButton>
+        <p style={{color: "black"}}>Shop</p>
+      </MenuItem>
+    </Link>
+
+    <Link to="/cart">
     <MenuItem>
       <IconButton aria-label="new items added to cart" color="inherit">
         <Badge badgeContent={cart.length} color="secondary">
-          <Link to="/cart">
             <ShoppingBasketIcon style={{color: "black"}}/>
-          </Link>
         </Badge>
       </IconButton>
-      <p>Cart</p>
+      <p style={{color: "black"}}>Cart</p>
     </MenuItem>
+    </Link>
     </Menu>
   );
   return (

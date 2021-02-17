@@ -79,7 +79,6 @@ console.log("FROM ALBUM cart", cart)
       direction="row"
       justify="center"
       alignItems="center"
-      spacing={3}
     >  
       <CardMedia
         className={classes.media}
