@@ -205,16 +205,21 @@ export default function EnhancedTable() {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [qty, setQty] = React.useState([{qty: 1}]);
-  const [{cart}] = useStateValue()
+  const [{cart}, dispatch] = useStateValue()
   // const [inputVals, setInputVals] = React.useState([{qty: ''}]);
 
 
   const handleQtyChange = (event) => {
     // setQty(event.target.value)
     console.log("QTY",qty)
-
     setQty({qty: event.target.value})
   };
+
+  const removeCartItem = () => {
+      dispatch({
+      type: "REMOVE_FROM_CART",
+    })
+  }
 
   const total = cart.reduce((acc, curr) => acc + curr.price, 0)
 
@@ -278,6 +283,9 @@ export default function EnhancedTable() {
 
   return (
     <div className={classes.root}>
+    {cart?.length === 0 ? (
+      <div><h1>NOTHING IN CART</h1></div>
+    ) : ( 
       <Paper className={classes.paper}>
         <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
@@ -348,7 +356,11 @@ export default function EnhancedTable() {
                             </Select>
                         </FormControl>
                       </TableCell>
-                      <TableCell key={row.id} align="right">{row.price * qty.qty}</TableCell> 
+                      <TableCell key={row.id} align="right">
+                        <IconButton aria-label="delete" onClick={removeCartItem}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </TableCell> 
                     </TableRow>
                   );
                 })}
@@ -360,17 +372,19 @@ export default function EnhancedTable() {
             </TableBody>
           </Table>
         </TableContainer>
-        
+        <h1>TOTAL: {total.toFixed(2)}</h1>
+        <StripeCheckout
+                  stripeKey="pk_test_51HIGdtFRb0GUvFhrlJAw2BIbRA9lGLgeoyEl4UZoEwkRp6b5Wdq90TraSfv0Qa8PTKmxnSMjhnGBx0xR3TElsGqa00ffMFSf9n"
+                  token={handleToken}
+                  billingAddress
+                  shippingAddress
+                  amount={total * 100}
+        />
       </Paper>
-      <h1>TOTAL: {total.toFixed(2)}</h1>
-      <StripeCheckout
-                stripeKey="pk_test_51HIGdtFRb0GUvFhrlJAw2BIbRA9lGLgeoyEl4UZoEwkRp6b5Wdq90TraSfv0Qa8PTKmxnSMjhnGBx0xR3TElsGqa00ffMFSf9n"
-                token={handleToken}
-                billingAddress
-                shippingAddress
-                amount={total * 100}
-      />
+     
+      )}
     </div>
+
   );
 }
 
