@@ -14,6 +14,8 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import AlbumOutlinedIcon from '@material-ui/icons/AlbumOutlined';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import ShoppingBasketOutlinedIcon from '@material-ui/icons/ShoppingBasketOutlined';
 import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import {useStateValue} from '../StateStore/StateProvider'
@@ -56,6 +58,9 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  badge: {
+    background: 'hotpink'
+  },
   inputRoot: {
     color: 'inherit',
   },
@@ -75,21 +80,19 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
     },
   },
-  // sectionMobile: {
-  //   display: 'flex',
-  //   [theme.breakpoints.up('md')]: {
-  //     display: 'none',
-  //   },
-  // },
+  sectionMobile: {
+    display: 'flex',
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
 }));
 
 export default function PrimarySearchAppBar() {
-  const [{cart}] = useStateValue()
-
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-
+  const [{cart}] = useStateValue()
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -111,21 +114,6 @@ export default function PrimarySearchAppBar() {
   };
 
   const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
-
   const mobileMenuId = 'primary-search-account-menu-mobile';
   const renderMobileMenu = (
     <Menu
@@ -137,52 +125,33 @@ export default function PrimarySearchAppBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
+    <MenuItem>
+      <IconButton aria-label="new items added to cart" color="inherit">
+        <Badge badgeContent={cart.length} color="secondary">
+          <Link to="/cart">
+            <ShoppingBasketIcon style={{color: "black"}}/>
+          </Link>
+        </Badge>
+      </IconButton>
+      <p>Cart</p>
+    </MenuItem>
     </Menu>
   );
-
   return (
     <div className={classes.grow}>
       <AppBar position="sticky" style={{backgroundColor: "#000"}}>
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
+          <IconButton aria-label="new items added to cart" color="inherit">
+            <Badge color="secondary">
+              <Link to="/">
+                <AlbumOutlinedIcon style={{color: "hotpink"}}/>
+              </Link>
+            </Badge>
           </IconButton>
           <Link to="/">
-          <Typography className={classes.title} variant="h6" noWrap>
-            PINKY'S RECORDS AND DISCS
-          </Typography>
+            <Typography className={classes.title} variant="h6" noWrap>
+              PINKY'S RECORDS AND DISCS
+            </Typography>
           </Link>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -198,52 +167,51 @@ export default function PrimarySearchAppBar() {
             />
           </div>
           <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-          <Link to="/shop">
-          <Typography className={classes.title} variant="h6" noWrap>
-            shop
-          </Typography>
+            <div className={classes.sectionDesktop}>
+              <Link to="/shop">
+                <Typography className={classes.title} variant="h5" noWrap>
+                  shop
+                </Typography>
               </Link>
               <Link to="/fav">
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <FavoriteBorderOutlinedIcon />
-              </Badge>
-            </IconButton>
-            </Link>
-            <Link to="/cart">
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={cart?.length} color="secondary">
-                <ShoppingBasketOutlinedIcon />
-              </Badge>
-            </IconButton>
-            </Link>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
+                <IconButton aria-label="show 4 new mails" color="inherit">
+                  <Badge classes={{badge: classes.badge}} badgeContent={4} color="secondary">
+                    <FavoriteBorderOutlinedIcon />
+                  </Badge>
+                </IconButton>
+              </Link>
+              <Link to="/cart">
+                <IconButton aria-label="show 17 new notifications" color="inherit">
+                  <Badge classes={{badge: classes.badge}} badgeContent={cart.length} color="secondary">
+                    <ShoppingBasketOutlinedIcon />
+                  </Badge>
+                </IconButton>
+              </Link>
+              <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle style={{color: "black"}} />
+              </IconButton>
+            </div>
+            <div className={classes.sectionMobile}>
+              <IconButton
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </div>
         </Toolbar>
       </AppBar>
       {renderMobileMenu}
-      {renderMenu}
     </div>
   );
 }
