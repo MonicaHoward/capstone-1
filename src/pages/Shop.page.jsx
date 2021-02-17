@@ -1,42 +1,27 @@
 import React from 'react' 
 import {useStateValue} from '../StateStore/StateProvider'
+import './shop.css'
 import AlbumList from '../components/AlbumList'
-
+import { Grid } from '@material-ui/core'
 
 const Shop = () => {
     const [{cart}] = useStateValue()
-    console.log("SHOP PAGE", cart)
     return(
-        
-        <div>
-            <h1>SHOP</h1>
-            <AlbumList />
-        </div>
-        
-)
+        <Grid 
+            container
+            className="shop"
+            direction="row"
+            justify="center"
+            alignItems="center"
+        >
+            <h1 className="shop-title">SHOP</h1>
+            <Grid
+                item
+            >
+            <AlbumList/>
+            </Grid>
+        </Grid>       
+    )
 }
-
 export default Shop
-// import './shop.css'
-// import Header from '../components/Header'
-// import AlbumList from '../components/AlbumList'
-// import Cart from '../components/Cart'
-// import Navbar from '../components/Navbar'
 
-// // import {RecordsContext} from '../StateStore/context'
-// // import recordsReducer from '../StateStore/reducer'
-
-
-
-
-    // const initialState = useContext(RecordsContext)
-    // const [state, dispatch] = useReducer(recordsReducer, initialState)
-
-    // console.log("SHOP STATE", state.state)
-    // console.log("SHOP context", RecordsContext)
-
-
-
-// export default Shop
-
-// <Header />

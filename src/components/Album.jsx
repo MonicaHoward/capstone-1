@@ -16,6 +16,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
 import {useStateValue} from '../StateStore/StateProvider'
+import { Grid } from '@material-ui/core'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,15 +66,21 @@ console.log("FROM ALBUM cart", cart)
         console.log(item)
         dispatch({ type: "ADD_TO_CART", item
         })
-        
     }
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   return (
-    <Card className={classes.root}>  
+    <Grid>
+    <Card 
+      item
+      className={classes.root}
+      direction="row"
+      justify="center"
+      alignItems="center"
+      spacing={3}
+    >  
       <CardMedia
         className={classes.media}
         styles={useStyles.card}
@@ -136,6 +143,7 @@ console.log("FROM ALBUM cart", cart)
           </Typography>
         </CardContent>
       </Collapse>
-    </Card>
+      </Card>
+    </Grid>
   );
 }
