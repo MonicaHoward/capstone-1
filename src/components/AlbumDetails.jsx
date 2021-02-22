@@ -5,10 +5,6 @@ import { Grid } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -28,8 +24,6 @@ function AlbumDetails() {
     const params = useParams()
     const [{records}, dispatch] = useStateValue()
     const [detailAlbum, setDetailAlbum] = useState([])
-    const [qty, setQty] = React.useState([{qty: 1}]);
-
 
     console.log("FROM ALBUM DETAIL", records)
 
@@ -52,12 +46,6 @@ function AlbumDetails() {
         dispatch({ type: "ADD_TO_CART", item
         })
     }
-    const handleQtyChange = (event) => {
-        // setQty(event.target.value)
-        console.log("QTY",qty)
-        setQty({qty: event.target.value})
-      };
-
    return(
     <div className={classes.root}>
        <Grid container>

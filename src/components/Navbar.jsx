@@ -1,10 +1,9 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
@@ -14,7 +13,6 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import AlbumOutlinedIcon from '@material-ui/icons/AlbumOutlined';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import ShoppingBasketOutlinedIcon from '@material-ui/icons/ShoppingBasketOutlined';
-import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutlined';
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import {useStateValue} from '../StateStore/StateProvider'
 import { Link } from 'react-router-dom'
@@ -93,33 +91,6 @@ export default function PrimarySearchAppBar() {
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const [{records, cart}] = useStateValue()
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
-  const [searchText, setSearchText] = useState('')
-
-
-  // const handleChange = event => {
-  //   setSearchTerm(event.target.value);
-  // };
-  const handleInput = (e) => {
-    const text = e.target.value
-    setSearchText(text)
-  }
-
-  const handleEnterKeyPressed = (e) => {
-    const text = e.target.value
-    if(e.key=== 'Enter') {
-      setSearchText(text)
-      console.log(searchText)
-    }
-  }
-
-// React.useEffect(() => {
-//   const results = records.filter(record =>
-//     record.album_title.toLowerCase().includes(searchTerm)
-//   );
-//   console.log("WHAT IS results", results)
-
-//   setSearchResults(results);
-// }, [records, searchTerm]);
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
@@ -215,8 +186,6 @@ export default function PrimarySearchAppBar() {
     )}
   />
           </div>
-      
-          
           <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
               <Link to="/shop">
