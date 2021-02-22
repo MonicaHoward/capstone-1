@@ -17,7 +17,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
-import Button from '@material-ui/core/Button';
 import {useStateValue} from '../StateStore/StateProvider'
 import StripeCheckout from 'react-stripe-checkout'
 import InputLabel from '@material-ui/core/InputLabel';
@@ -25,9 +24,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-function createData(name, calories, fat, carbs) {
-  return { name, calories, fat, carbs };
-}
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -131,47 +127,6 @@ const useToolbarStyles = makeStyles((theme) => ({
   },
 }));
 
-const EnhancedTableToolbar = (props) => {
-  const classes = useToolbarStyles();
-  const { numSelected } = props;
-
-  return (
-    <Toolbar
-      className={clsx(classes.root, {
-        [classes.highlight]: numSelected > 0,
-      })}
-    >
-      {numSelected > 0 ? (
-        <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-          Nutrition
-        </Typography>
-      )}
-
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-        <Tooltip title="Filter list">
-          <IconButton aria-label="filter list">
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      )}
-    </Toolbar>
-  );
-};
-
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
-
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
@@ -201,18 +156,16 @@ export default function EnhancedTable() {
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
   const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
+  const [page] = React.useState(0);
+  const [dense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [qty, setQty] = React.useState([{qty: 1}]);
   const [{cart}, dispatch] = useStateValue()
-  // const [inputVals, setInputVals] = React.useState([{qty: ''}]);
 
 
   const handleQtyChange = (event) => {
-    // setQty(event.target.value)
+    setQty(event.target.value)
     console.log("QTY",qty)
-    setQty({qty: event.target.value})
   };
 
   const removeCartItem = () => {
@@ -230,23 +183,12 @@ export default function EnhancedTable() {
   };
 
   function handleToken(token, addresses){
-    console.log({token, addresses})
-    
+    console.log({token, addresses})   
   }
-
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = cart.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
-
     if (selectedIndex === -1) {
       newSelected = newSelected.concat(selected, name);
     } else if (selectedIndex === 0) {
@@ -259,25 +201,8 @@ export default function EnhancedTable() {
         selected.slice(selectedIndex + 1),
       );
     }
-
     setSelected(newSelected);
   };
-
-  
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
-
-  const isSelected = (name) => selected.indexOf(name) !== -1;
 
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, cart.length - page * rowsPerPage);
 
@@ -287,7 +212,6 @@ export default function EnhancedTable() {
       <div><h1>NOTHING IN CART</h1></div>
     ) : ( 
       <Paper className={classes.paper}>
-        <EnhancedTableToolbar numSelected={selected.length} />
         <TableContainer>
           <Table
             className={classes.table}
@@ -300,7 +224,6 @@ export default function EnhancedTable() {
               numSelected={selected.length}
               order={order}
               orderBy={orderBy}
-              // onSelectAllClick={handleSelectAllClick}
               onRequestSort={handleRequestSort}
               rowCount={cart.length}
             />
@@ -308,23 +231,18 @@ export default function EnhancedTable() {
               {stableSort(cart, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.id)}
-                      // role="checkbox"
-                      // aria-checked={isItemSelected}
+                      onClick={(event) => handleClick(event, row.id)}                     
                       tabIndex={-1}
                       key={row.id}
-                      // selected={isItemSelected}
                     >
                       <TableCell padding="checkbox">
                         <Checkbox
-                          // checked={isItemSelected}
-                          // inputProps={{ 'aria-labelledby': labelId }}
+                        
                         />
                       </TableCell>
                       <TableCell component="th" id={labelId} scope="row" padding="none">
@@ -348,7 +266,8 @@ export default function EnhancedTable() {
                             >
                             { [...Array(row.quantity)].map((e, i) => (
                                 <MenuItem 
-                                  key={i}                                defaultValue ={1}
+                                  key={i}                                
+                                  defaultValue ={1}
                                   value={i+1}
                                 >
                                   {i+1}
@@ -387,10 +306,3 @@ export default function EnhancedTable() {
 
   );
 }
-
-// <TableCell padding="checkbox">
-// <Checkbox
-//   checked={isItemSelected}
-//   inputProps={{ 'aria-labelledby': labelId }}
-// />
-// </TableCell>

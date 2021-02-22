@@ -5,6 +5,7 @@ import Header from './components/header/Header'
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Shop from './pages/Shop.page'
 import Cart from './components/Cart'
+import AlbumDetails from './components/AlbumDetails'
 
 function App() {
   return(
@@ -12,6 +13,9 @@ function App() {
         <div className="app">
         <Navbar/>
           <Switch>
+          <Route path="/album/:id" >
+              <AlbumDetails />
+            </Route>
             <Route path="/favs">
                 <h1>favs</h1>
             </Route>
@@ -24,6 +28,7 @@ function App() {
             <Route path="/">
                 <Header />
             </Route>
+            
           </Switch>
         </div>
     </BrowserRouter>

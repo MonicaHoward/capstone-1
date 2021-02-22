@@ -3,23 +3,9 @@ import Album from '../components/Album'
 import {useStateValue} from '../StateStore/StateProvider'
 import { Grid } from '@material-ui/core'
 import './Album.css'
-import { makeStyles } from '@material-ui/core/styles';
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      height: 140,
-      width: 100,
-    },
-    control: {
-      padding: theme.spacing(2),
-    },
-  }));
 
 const AlbumList = () => {
-    const classes = useStyles();
+  
     const [{records, cart}] = useStateValue()
     console.log("FROM ALBUM LIST", records, cart)
     return(

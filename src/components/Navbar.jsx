@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -18,6 +18,8 @@ import FavoriteBorderOutlinedIcon from '@material-ui/icons/FavoriteBorderOutline
 import StorefrontIcon from '@material-ui/icons/Storefront';
 import {useStateValue} from '../StateStore/StateProvider'
 import { Link } from 'react-router-dom'
+import TextField from '@material-ui/core/TextField';
+import Autocomplete from '@material-ui/lab/Autocomplete';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -88,23 +90,39 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrimarySearchAppBar() {
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-  const [{cart}] = useStateValue()
-  const isMenuOpen = Boolean(anchorEl);
+  const [{records, cart}] = useStateValue()
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [searchText, setSearchText] = useState('')
 
-  const handleProfileMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+
+  // const handleChange = event => {
+  //   setSearchTerm(event.target.value);
+  // };
+  const handleInput = (e) => {
+    const text = e.target.value
+    setSearchText(text)
+  }
+
+  const handleEnterKeyPressed = (e) => {
+    const text = e.target.value
+    if(e.key=== 'Enter') {
+      setSearchText(text)
+      console.log(searchText)
+    }
+  }
+
+// React.useEffect(() => {
+//   const results = records.filter(record =>
+//     record.album_title.toLowerCase().includes(searchTerm)
+//   );
+//   console.log("WHAT IS results", results)
+
+//   setSearchResults(results);
+// }, [records, searchTerm]);
 
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-    handleMobileMenuClose();
   };
 
   const handleMobileMenuOpen = (event) => {
@@ -164,28 +182,47 @@ export default function PrimarySearchAppBar() {
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
+          
+            <Autocomplete
+    id="autocmplete-clickable"
+    style={{ width: 300 }}
+    options={records}
+  
+    autoHighlight
+    getOptionLabel={(record) => record.album_title}
+    renderOption={(record) => (
+      <React.Fragment>
+        <span
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            window.location.href = `album/${record.id}`;
+          }}
+        >
+          {record.album_title} 
+        </span>
+      </React.Fragment>
+    )}
+    renderInput={(params) => (
+      <TextField
+        {...params}
+        label="search"
+        variant="outlined"
+        inputProps={{
+          ...params.inputProps,
+          autoComplete: "new-password" // disable autocomplete and autofill
+        }}
+      />
+    )}
+  />
           </div>
+      
+          
           <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
               <Link to="/shop">
                 <Typography className={classes.title} variant="h5" noWrap>
                   shop
                 </Typography>
-              </Link>
-              <Link to="/fav">
-                <IconButton aria-label="show 4 new mails" color="inherit">
-                  <Badge classes={{badge: classes.badge}} badgeContent={4} color="secondary">
-                    <FavoriteBorderOutlinedIcon />
-                  </Badge>
-                </IconButton>
               </Link>
               <Link to="/cart">
                 <IconButton aria-label="show 17 new notifications" color="inherit">
@@ -199,7 +236,6 @@ export default function PrimarySearchAppBar() {
                 aria-label="account of current user"
                 aria-controls={menuId}
                 aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
                 color="inherit"
               >
                 <AccountCircle style={{color: "black"}} />

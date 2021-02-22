@@ -19,7 +19,7 @@ export const initialState = {
             genre: "r&b",
             price: 18.99,
             label: "RCA",
-            serial_no: 111111111,
+            serial_no: 842111111,
             quantity: 1
         },
         {
@@ -30,7 +30,7 @@ export const initialState = {
             genre: "r&b",
             price: 20.99,
             label: "RCA",
-            serial_no: 111111111,
+            serial_no: 908411111,
             quantity: 2
         },
         {
@@ -41,7 +41,7 @@ export const initialState = {
             genre: "rap",
             price: 24.99,
             label: "RCA",
-            serial_no: 111111111,
+            serial_no: 73891111,
             quantity: 4
         },
         {
@@ -52,7 +52,7 @@ export const initialState = {
             genre: "r&b",
             price: 18.98,
             label: "RCA",
-            serial_no: 111111111,
+            serial_no: 1742111,
             quantity: 44
         },
         {
@@ -63,7 +63,7 @@ export const initialState = {
             genre: "rock",
             price: 12.99,
             label: "RCA",
-            serial_no: 111111111,
+            serial_no: 407532111,
             quantity: 34
         },
         {
@@ -74,7 +74,7 @@ export const initialState = {
             genre: "pop",
             price: 19.99,
             label: "RCA",
-            serial_no: 111111111,
+            serial_no: 469876536,
             quantity: 7
         },
         {
@@ -85,7 +85,7 @@ export const initialState = {
             genre: "country",
             price: 19.99,
             label: "RCA",
-            serial_no: 111111111,
+            serial_no: 97654432,
             quantity: 12
         },
         {
@@ -96,7 +96,7 @@ export const initialState = {
             genre: "country",
             price: 19.99,
             label: "RCA",
-            serial_no: 111111111,
+            serial_no: 876544322,
             quantity: 9
         },
         {
@@ -107,7 +107,7 @@ export const initialState = {
             genre: "rap",
             price: 19.99,
             label: "RCA",
-            serial_no: 111111111,
+            serial_no: 99765411,
             quantity: 4
         },
         {
@@ -118,7 +118,7 @@ export const initialState = {
             genre: "rap",
             price: 19.99,
             label: "RCA",
-            serial_no: 111111111,
+            serial_no: 1876544332,
             quantity: 3
         },
     ],
@@ -132,7 +132,6 @@ function reducer(state, action){
                 ...state,
                 cart: [...state.cart, action.item]
             }
-        break;
         case "REMOVE_FROM_CART":
             let newCart = [...state.cart];
 
@@ -140,17 +139,12 @@ function reducer(state, action){
             if (index >= 0) {
                 newCart.splice((index, 1), )
             }
-            else {
-                console.warn ("can't remove product {id: ${action.id} becaue its not in the cart")
-            }
             console.log("FROM REDUCER", index,)
 
             return {
                 ...state,
                 cart: newCart
             }
-        break;
-
         default: 
             return state
     }
